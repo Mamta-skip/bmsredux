@@ -6,11 +6,13 @@ import Register from "./pages/auth/Register"
 import Addblog from "./pages/blog/Addblog"
 import Editblog from "./pages/blog/Editblog"
 import Singleproductpage from "./pages/blog/components/singlepage/Singleproductpage"
+import { Provider } from "react-redux"
+import store from "../store/store"
 function App() {
 
 
   return (
-    <>
+    <Provider store={store}>
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<Home/>}> </Route>
@@ -22,7 +24,7 @@ function App() {
     </Routes>
     </BrowserRouter>
     
-    </>
+    </Provider>
   )
 }
 
