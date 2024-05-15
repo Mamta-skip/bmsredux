@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const Form = ({type,onSubmit}) => {
+const Form = ({type,onSubmit,user}) => {
 	const [data, setData] = useState({
 		username: "",
 		password: "",
@@ -31,6 +31,7 @@ const Form = ({type,onSubmit}) => {
 			  </h1>
 			) : (
 			  <h1 className="text-2xl font-semibold">
+				<h2>Hello Namaste{user?.username}</h2>
 				Login here to continuee..
 			  </h1>
 			)}
