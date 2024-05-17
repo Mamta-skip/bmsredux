@@ -1,8 +1,7 @@
+const STATUSES = Object.freeze({
+  SUCCESS: "success",
+  ERROR: "error",
+  LOADING: "loading",
+});
 
-
-const STATUSES= Object.freeze({
-    Success:"success",
-    Error:"error",
-    Loading:"loading"
-})
-export default STATUSES
+export default STATUSES;
