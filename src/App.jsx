@@ -9,8 +9,6 @@ import Singleproductpage from "./pages/blog/components/singlepage/Singleproductp
 import { Provider } from "react-redux"
 import store from "../store/store"
 function App() {
-
-
   return (
     <Provider store={store}>
     <BrowserRouter>
@@ -19,8 +17,8 @@ function App() {
       <Route path="/login" element={<Login/>}> </Route>
       <Route path="/register" element={<Register/>}> </Route>
       <Route path="/blog/create" element={<Addblog/>}> </Route>
-      <Route path="/blog/edit" element={<Editblog/>}> </Route>
-      <Route path="/singleproductpage" element={<Singleproductpage/>}></Route>
+      <Route path="/blog/edit/:id" element={<Editblog/>}> </Route>
+      <Route path="/blog/:id" element={<Singleproductpage/>}></Route>
     </Routes>
     </BrowserRouter>
     

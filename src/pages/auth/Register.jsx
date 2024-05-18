@@ -20,9 +20,7 @@ function Register() {
       navigate("/login");
       dispatch(setStatus(null))
       console.log( status +"hello")
-    } else {
-      navigate("/register");
-    }
+    } 
   }, [status]);
   return <Form type={"Register"} onSubmit={handleRegister} />;
 }

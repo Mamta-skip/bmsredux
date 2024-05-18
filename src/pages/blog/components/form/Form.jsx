@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layouts from "../../../../components/layout/Layouts";
+import { useSelector } from "react-redux";
 
-const Form = ({ type, onSubmit }) => {
+const Form = ({ type, onSubmit,initialdata }) => {
   const [data, setData] = useState({
     title: "",
     subtitle: "",
@@ -9,6 +10,12 @@ const Form = ({ type, onSubmit }) => {
     category: "",
     image: null,
   });
+  useEffect(() => {
+    if (initialdata) {
+      setData(initialdata);
+    }
+  }, [initialdata]);
+  console.log(data);
   const handleInput = (e) => {
     const { name, value } = e.target;
     setData({
@@ -44,6 +51,7 @@ const Form = ({ type, onSubmit }) => {
                 type="text"
                 id="fullName"
                 name="title"
+                value={data.title}
                 onChange={handleInput}
                 class="form-input w-full px-4 py-2 border rounded-lg text-gray-700 focus:ring-blue-500"
                 required
@@ -61,6 +69,7 @@ const Form = ({ type, onSubmit }) => {
                 type="text"
                 id="fullName"
                 name="subtitle"
+                value={data.subtitle}
                 onChange={handleInput}
                 class="form-input w-full px-4 py-2 border rounded-lg text-gray-700 focus:ring-blue-500"
                 required
@@ -75,8 +84,10 @@ const Form = ({ type, onSubmit }) => {
               </label>
               <input
                 type="file"
-                id="fullName"
+                accept="image/*"
+                id="image"
                 name="image"
+                // value={data.imageUrl}
                 onChange={handleInput}
                 class="form-input w-full px-4 py-2 border rounded-lg text-gray-700 focus:ring-blue-500"
                 required
@@ -94,6 +105,7 @@ const Form = ({ type, onSubmit }) => {
                 type="text"
                 id="fullName"
                 name="category"
+                value={data.category}
                 onChange={handleInput}
                 class="form-input w-full px-4 py-2 border rounded-lg text-gray-700 focus:ring-blue-500"
                 required
@@ -107,6 +119,7 @@ const Form = ({ type, onSubmit }) => {
                 Descreptions*
               </label>
               <textarea
+              value={data.description}
                 type="text"
                 id="fullName"
                 name="description"

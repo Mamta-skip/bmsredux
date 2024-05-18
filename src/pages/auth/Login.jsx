@@ -8,7 +8,7 @@ import Layouts from "../../components/layout/Layouts";
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, status } = useSelector((state) => state.auth);
+  const { user, status,token } = useSelector((state) => state.auth);
   const handleLogin = (data) => {
     dispatch(login(data));
     
@@ -16,11 +16,10 @@ function Login() {
   useEffect(() => {
     if (status === STATUSES.SUCCESS) {
        navigate("/");
+       localStorage.setItem("jwtToken",token)
        dispatch(setStatus(null))
       
-    } else {
-       navigate("/login");
-    }
+    } 
   }, [status]);
   return (
     <Layouts>

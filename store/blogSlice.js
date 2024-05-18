@@ -4,19 +4,24 @@ import API from "../src/http";
 const blogSlice = createSlice({
   name: "blog",
   initialState: {
-    data: null,
+    blogs:[],
+    singleblog:{},
     status: null,
   },
   reducers: {
-    setBlog(state, action) {
-      state.data = action.payload;
+    setBlogs(state, action) {
+      state.blogs = action.payload;
+    },
+    setBlog(state,action){
+      state.singleblog=action.payload;
     },
     setStatus(state, action) {
       state.status = action.payload;
     },
+   
   },
 });
-export const { setBlog, setStatus } = blogSlice.actions;
+export const { setBlogs, setStatus,setBlog } = blogSlice.actions;
 export default blogSlice.reducer;
 
 export function blog(data) {
@@ -39,46 +44,87 @@ export function blog(data) {
   };
 }
 
-// export function fetchBlog(){
-//     return async function fetchBlogThunk(dispatch){
-//         dispatch(setStatus(STATUSES.Loading))
-//        try {
+// all blog 
+export function fetchBlog(){
+    return async function fetchBlogThunk(dispatch){
+        dispatch(setStatus(STATUSES.LOADING))
+       try {
 
-//         const response = await API.get("/blog");
+        const response = await API.get("/blog");
+        if(response.status=== 200 ){
+          const blogs =response.data.data;
+            dispatch(setBlogs(blogs))
+           dispatch( setStatus(STATUSES.SUCCESS))
+        }
+        else{
+dispatch(setStatus(STATUSES.ERROR))
+     }
+       } catch (error) {
+        dispatch(setStatus(STATUSES.ERROR))
+       }
+    }
+}
 
-//         if(response.status=== 201 && response.data.blog.length>0){
-//             dispatch(setBlog(response.data.blog))
-//            dispatch( setStatus(STATUSES.Success))
-//         }
-//         else{
-// dispatch(setStatus(STATUSES.Error))
-//      }
-//        } catch (error) {
-//         dispatch(setStatus(STATUSES.Error))
-//        }
-//     }
-// }
+// singleblogfetch
+ export function singleBlog(id){
+  return async function singleBlogThunk(dispatch){
+dispatch(setStatus(STATUSES.LOADING));
+try {
+  const response =  await API.get(`/blog/${id}`)
+  if(response.status ===200){
+    const singleblog = response.data.data;
+    dispatch(setBlog(singleblog))
+    dispatch(setStatus(STATUSES.SUCCESS));
+  }
+  else{
+    dispatch(setStatus(STATUSES.ERROR))
+  }
+} catch (error) {
+  dispatch(setStatus(STATUSES.ERROR))
+}
+  }
 
-// export function deleteBlog(id,token){
-//     return async function deleteBlogThunk(dispatch){
-//         dispatch(setStatus(STATUSES.Loading))
-//        try {
+}
 
-//         const response = await API.delete(`/blog/${id}`,{
-//             headers:{
-//                 token:token
-//             }
-//         });
+// delete blog
+export function deleteBlog(id){
+    return async function deleteBlogThunk(dispatch){
+        dispatch(setStatus(STATUSES.Loading))
+       try {
 
-//         if(response.status=== 201){
+        const response = await API.delete(`/blog/${id}`)
+        console.log(response);
+        if(response.status=== 200){
 
-//            dispatch( setStatus(STATUSES.Success))
-//         }
-//         else{
-// dispatch(setStatus(STATUSES.Error))
-//      }
-//        } catch (error) {
-//         dispatch(setStatus(STATUSES.Error))
-//        }
-//     }
-// }
+           dispatch( setStatus(STATUSES.SUCCESS));
+           console.log("hello from sicee");
+        }
+        else{
+dispatch(setStatus(STATUSES.ERROR))
+     }
+       } catch (error) {
+        dispatch(setStatus(STATUSES.ERROR))
+       }
+    }
+}
+
+// edit blog 
+ export function blogEdit (data,id){
+ 
+  return async function blogEditThunk(dispatch){
+    dispatch(setStatus(STATUSES.LOADING));
+   try {
+    const response = await API.patch(`/blog/${id}`,data)
+    if(response.status===200){
+      dispatch(setBlog(singleBlog));
+      dispatch(setStatus(STATUSES.SUCCESS))
+     
+    }
+    else{
+      dispatch(setStatus(STATUSES.ERROR));
+    }
+   } catch (error) {
+    dispatch(setStatus(STATUSES.ERROR));
+   }
+  }
+}
