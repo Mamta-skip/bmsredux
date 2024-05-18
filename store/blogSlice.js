@@ -4,7 +4,7 @@ import API from "../src/http";
 const blogSlice = createSlice({
   name: "blog",
   initialState: {
-    blogs:[],
+    blogs:null,
     singleblog:{},
     status: null,
   },
@@ -114,7 +114,11 @@ dispatch(setStatus(STATUSES.ERROR))
   return async function blogEditThunk(dispatch){
     dispatch(setStatus(STATUSES.LOADING));
    try {
-    const response = await API.patch(`/blog/${id}`,data)
+    const response = await API.patch(`/blog/${id}`,data,{
+      headers:{
+        "Content-Type": "multipart/form-data",
+      }
+    })
     if(response.status===200){
       dispatch(setBlog(singleBlog));
       dispatch(setStatus(STATUSES.SUCCESS))

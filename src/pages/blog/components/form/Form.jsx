@@ -87,7 +87,7 @@ const Form = ({ type, onSubmit,initialdata }) => {
                 accept="image/*"
                 id="image"
                 name="image"
-                // value={data.imageUrl}
+            //  value={data.imageUrl}
                 onChange={handleInput}
                 class="form-input w-full px-4 py-2 border rounded-lg text-gray-700 focus:ring-blue-500"
                 required
