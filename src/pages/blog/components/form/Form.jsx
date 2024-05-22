@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Authlayout from "../../../../components/layout/Authlayout";
 import Layouts from "../../../../components/layout/Layouts";
-import { useSelector } from "react-redux";
 
 const Form = ({ type, onSubmit,initialdata }) => {
   const [data, setData] = useState({
@@ -30,7 +30,7 @@ const Form = ({ type, onSubmit,initialdata }) => {
   };
 
   return (
-    <Layouts>
+    <Authlayout>
       <div class="bg-gray-100 flex items-center justify-center h-screen">
         <div class="bg-white p-8 rounded-lg shadow-lg max-w-xl w-full">
           <h2 class="text-2xl font-semibold text-center mb-4">
@@ -147,7 +147,7 @@ const Form = ({ type, onSubmit,initialdata }) => {
           </form>
         </div>
       </div>
-    </Layouts>
+    </Authlayout>
   );
 };
 

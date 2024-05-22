@@ -13,8 +13,10 @@ function Login() {
     dispatch(login(data));
     
   };
+  
   useEffect(() => {
     if (status === STATUSES.SUCCESS) {
+    
        navigate("/");
        localStorage.setItem("jwtToken",token)
        dispatch(setStatus(null))
